@@ -1,8 +1,11 @@
 import React from 'react'
 import { BrowserRouter, NavLink } from "react-router-dom";
 import { Routes, Route, Navigate } from "react-router-dom";
+import { LazyPage1, LazyPage2, LazyPage3 } from '../01-lazyload/pages';
 
 import logo from '../logo.svg'
+
+import { routes } from './routes'
 
 export const Navigation = () => {
     return (
@@ -12,26 +15,25 @@ export const Navigation = () => {
                     <img src={logo} alt="React logo" />
 
                     <ul>
-                        <li>
-                            <NavLink to="/home" className={ ( {isActive}) => isActive? 'nav-active': '' }>Home</NavLink>
 
-                        </li>
-                        <li>
-                            <NavLink to="/about" className={ ( {isActive}) => isActive? 'nav-active': '' }>About</NavLink>
+                        {
+                            routes.map(route => {
+                                <li>
+                                    <NavLink to={route.to} className={({ isActive }) => isActive ? 'nav-active' : ''}>{route.name}</NavLink>
+                                </li>
 
-                        </li>
-                        <li>
-                            <NavLink to="/users">Users</NavLink>
-
-                        </li>
+                            })
+                        }
                     </ul>
                 </nav>
 
                 <Routes>
-                    <Route path='/about' element={<h1>About page</h1>} />
-                    <Route path='/users' element={<h1>USers page</h1>} />
-                    <Route path='/home' element={<h1>home page</h1>} />
-                    <Route path='/*' element={ <Navigate to='/home' replace />} />
+                    {
+                        routes.map(route => 
+                            <Route path={route.path} element={route.Component} />
+                        )
+                        
+                    }
                 </Routes>
 
             </div>
