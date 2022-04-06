@@ -47,3 +47,8 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 
 
+ git branch
+ git add .
+ git commit -m "LazyLoad basico listo"
+ git checkout -b lazyload-nested-rrd6
+ 
